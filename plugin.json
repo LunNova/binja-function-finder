@@ -1,0 +1,21 @@
+{
+  "plugin": {
+    "name": "Function Finder",
+    "type": ["core", "ui", "architecture", "binaryview"],
+    "api": "python2",
+    "description": "A few tools for finding functions which might be missed by binary ninja's auto analysis.",
+    "longdescription": "A few tools for finding functions which might be missed by binary ninja's auto analysis.",
+    "license": {
+      "name": "AGPL",
+      "text": "See LICENSE.md or https://www.gnu.org/licenses/agpl-3.0.md"
+    },
+    "dependencies": {
+    },
+    "version": "0.1",
+    "author": "nallar",
+    "minimumBinaryNinjaVersion": {
+			"release (Personal)": "1.0.dev-729",
+			"release (Commercial)": "1.0.dev-729"
+		}
+  }
+}
