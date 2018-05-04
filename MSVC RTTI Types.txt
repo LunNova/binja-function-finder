@@ -1,0 +1,40 @@
+/d1reportAllClassLayout
+
+1>class _TypeDescriptor	size(16):
+1>	+---
+1> 0	| pVFTable
+1> 8	| spare
+1>16	| name
+1>	+---
+
+1>class _s__RTTIBaseClassDescriptor2	size(36):
+1>	+---
+1> 0	| pTypeDescriptor
+1> 8	| numContainedBases
+1>12	| _PMD where
+1>24	| attributes
+1>28	| pClassDescriptor
+1>	+---
+1>
+1>class _s__RTTIBaseClassArray	size(1):
+1>	+---
+1> 0	| arrayOfBaseClassDescriptors
+1>	+---
+1>
+1>class _s__RTTIClassHierarchyDescriptor	size(20):
+1>	+---
+1> 0	| signature
+1> 4	| attributes
+1> 8	| numBaseClasses
+1>12	| pBaseClassArray
+1>	+---
+1>
+1>class _s__RTTICompleteObjectLocator2	size(36):
+1>	+---
+1> 0	| signature
+1> 4	| offset
+1> 8	| cdOffset
+1>12	| pTypeDescriptor
+1>20	| pClassDescriptor
+1>28	| pSelf
+1>	+---
