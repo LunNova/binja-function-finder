@@ -9,6 +9,9 @@ from .rtti import RTTIFinder
 PluginCommand.register("Function Finder - Fix Split Functions", "Combines unnecessarily split functions",
                        lambda bv: SplitFunctionFixer(bv).start())
 
+PluginCommand.register("Function Finder - RTTI", "Search for functions using MSVC RTTI data",
+                       lambda bv: RTTIFinder(bv).start())
+
 PluginCommand.register("Function Finder - code xref",
                        "Search for references to possible functions in executable segments",
                        lambda bv: XrefFinder(bv).start())
