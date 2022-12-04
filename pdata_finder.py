@@ -13,17 +13,17 @@ class PdataFinder(BackgroundTaskThread):
     def run(self):
         bv = self.bv
 
-        print 'Waiting for analysis'
+        print('Waiting for analysis')
         bv.update_analysis_and_wait()
 
         while self.found != 0:
             self.found = 0
             for section_name in bv.sections:
-                print section_name
+                print(section_name)
                 if section_name == ".pdata":
                     section = bv.sections[section_name]  # type: Section
                     self.find(bv, section.start, section.end)
-            print 'Found ' + str(self.found) + ' functions'
+            print('Found ' + str(self.found) + ' functions')
 
     def find(self, bv, start, end):
         """
@@ -44,7 +44,7 @@ class PdataFinder(BackgroundTaskThread):
                 break
             start_address += offset
             end_address += offset
-            ends.append(end_address)
+            ends.append((start_address, end_address))
             current = bv.get_function_at(start_address)  # type: Function
             if current is None or current.start != start_address:
                 # if not bv.get_basic_blocks_at(start_address):
@@ -55,9 +55,9 @@ class PdataFinder(BackgroundTaskThread):
                 self.found += 1
         bv.update_analysis_and_wait()
 
-        for end_address in ends:
+        for start_address, end_address in ends:
             if not bv.get_functions_containing(end_address - 1):
-                print "Expected pdata end_address to be in function " + hex(end_address)
+                print("Expected pdata end_address to be in function. start: " + hex(start_address) + " end: " + hex(end_address))
 
 
 if 'bv' in locals():

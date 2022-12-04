@@ -8,7 +8,7 @@ def is_split_far(calling_functions, jumps, start):
     for cf in calling_functions:
         dist = abs(cf.start - start)
         if dist > 1000:
-            print (hex(start) + " looks like split function, jumped to " + str(
+            print(hex(start) + " looks like split function, jumped to " + str(
                 jumps) + " times")
             print("Not unsplitting as jump from " + str(dist) + " bytes away")
             return True
@@ -31,15 +31,15 @@ class SplitFunctionFixer(BackgroundTaskThread):
         splits = []
         calling_functions_to_update = set()  # type: Set[int]
 
-        print 'Waiting for analysis'
+        print('Waiting for analysis')
         bv.update_analysis_and_wait()
 
-        print 'Finding split functions'
+        print('Finding split functions')
         for called_function in bv.functions:
             if SplitFunctionFixer.abort:
                 return
 
-            xrefs = bv.get_code_refs(called_function.start)
+            xrefs = list(bv.get_code_refs(called_function.start))
             if not xrefs or len(xrefs) == 0:
                 continue
 

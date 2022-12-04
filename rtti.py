@@ -72,18 +72,18 @@ def make_thiscall(fn, t=None):
     """
     pvs = fn.parameter_vars
     if not pvs or len(pvs) == 0:
-        pvs = [Variable(fn, VariableSourceType.RegisterVariableSourceType, 0, 56L, "this")]
-    if pvs[0].storage != 56L:
+        pvs = [Variable(fn, VariableSourceType.RegisterVariableSourceType, 0, 56, "this")]
+    if pvs[0].storage != 56:
         # raise Exception("this should be in rcx for " + hex(function.start) +
         #  " " + repr([(x.name, x.index, x.storage) for x in pvs]))
         for pv in pvs:
-            if pv.storage == 56L:
+            if pv.storage == 56:
                 raise Exception("this should be arg0 in rcx for " + hex(fn.start) + " " + repr(
                     [(x.name, x.index, x.storage) for x in pvs]))
             pv.index += 1
 
         original_pvs = pvs
-        pvs = [Variable(fn, VariableSourceType.RegisterVariableSourceType, 0, 56L, "this")]
+        pvs = [Variable(fn, VariableSourceType.RegisterVariableSourceType, 0, 56, "this")]
         pvs.extend(original_pvs)
     pvs[0].name = "this"
     if t:
@@ -233,7 +233,7 @@ class RTTIFinder(object):
 
         rtti_td, _ = bv.parse_type_string("RTTITypeDescriptor")
         self.define_data(pTypeDescriptor, name, rtti_td)
-        name_address = pTypeDescriptor + address_size * 2L
+        name_address = pTypeDescriptor + address_size * 2
         self.define_data(name_address, "mangled_name_" + hex(name_address),
                          bv.parse_type_string("char[" + str(len(mangled_name)) + "]")[0])
 

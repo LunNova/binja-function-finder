@@ -13,7 +13,7 @@ class XrefFinder(BackgroundTaskThread):
     def run(self):
         bv = self.bv
 
-        print 'Waiting for analysis'
+        print('Waiting for analysis')
         bv.update_analysis_and_wait()
 
         while self.found != 0:
@@ -24,7 +24,7 @@ class XrefFinder(BackgroundTaskThread):
                     start = segment.start
                     end = segment.end
                     self.find(bv, start, end)
-            print 'Found ' + str(self.found) + ' functions'
+            print('Found ' + str(self.found) + ' functions')
 
     def find(self, bv, start, end):
         cur = start
@@ -50,7 +50,7 @@ class XrefFinder(BackgroundTaskThread):
             f = bv.get_function_at(cur)  # type: Function
             if f.name[0:4] == 'sub_':
                 f.name += '_xref'
-            print 'Found ' + f.name
+            print('Found ' + f.name)
             self.found += 1
         bv.update_analysis_and_wait()
 

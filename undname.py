@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from io import StringIO
 
 
 # TODO: Handle backreferences properly (failing unit test)
