@@ -1,8 +1,10 @@
 from binaryninja.plugin import PluginCommand
 
-from pdata_finder import PdataFinder
-from split_function_fixer import SplitFunctionFixer
-from xref_finder import XrefFinder
+from .pdata_finder import PdataFinder
+from .split_function_fixer import SplitFunctionFixer
+from .xref_finder import XrefFinder
+from .rtti import RTTIFinder
+
 
 PluginCommand.register("Function Finder - Fix Split Functions", "Combines unnecessarily split functions",
                        lambda bv: SplitFunctionFixer(bv).start())
