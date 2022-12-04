@@ -1,9 +1,10 @@
 from collections import defaultdict
 
 from binaryninja import *
+from binaryninja.types import *
 from typing import List
 
-import undname
+from . import undname
 
 
 def define_named_type(bv, name, creator):
@@ -35,7 +36,7 @@ def create_rtti_col(bv):
     :type bv: BinaryView
     :type bv: BinaryView
     """
-    structure = Structure()
+    structure = StructureBuilder.create()
     # this is actually a 32-bit pointer relative to the image base address
     # TODO: Find out how/raise binary ninja issue for image base relative pointer types
     rva_pointer = build_rva_pointer(bv)
@@ -55,7 +56,7 @@ def create_rtti_type_descriptor(bv):
     """
     :type bv: BinaryView
     """
-    structure = Structure()
+    structure = StructureBuilder.create()
     pointer, _ = bv.parse_type_string("void *")
     structure.append(pointer, "pVFTable")
     structure.append(pointer, "spare")
@@ -101,7 +102,7 @@ class RTTIFinder(object):
         self.rtti_col = define_named_type(self.bv, "RTTICompleteObjectLocator", lambda _bv: create_rtti_col(_bv))
         self.rtti_td = define_named_type(self.bv, "RTTITypeDescriptor", lambda _bv: create_rtti_type_descriptor(_bv))
 
-    def find_rtti_data(self):
+    def start(self):
         rdata = self.bv.get_section_by_name(".rdata")
         if not rdata:
             print("No rdata section, can't look for RTTI info")
@@ -118,7 +119,8 @@ class RTTIFinder(object):
         br = BinaryReader(bv)
         class_vtables = defaultdict(list)
         while current < end:
-            next_address = bv.get_next_data_var_after(current)
+            next_address = bv.get_next_data_var_after(current).address
+            print(next_address)
             if not next_address or next_address <= current or next_address >= end:
                 print("Done, found " + str(found) + " vtables")
                 break
