@@ -18,3 +18,14 @@ PluginCommand.register("Function Finder - code xref",
 
 PluginCommand.register("Function Finder - .pdata", "Search for functions using .pdata section",
                        lambda bv: PdataFinder(bv).start())
+
+PluginCommand.register("Function Finder - Remove all functions", "",
+                       lambda bv: FunctionRemover(bv).start())
+
+class FunctionRemover:
+    def __init__(self, bv):
+        self.bv = bv
+
+    def start(self):
+        for f in list(self.bv.functions):
+            self.bv.remove_function(f)
